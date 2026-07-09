@@ -1,3 +1,22 @@
+# Virtual environments
 tej_venv/
+.venv/
+venv/
+env/
 
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging/build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing and tooling caches
+.pytest_cache/
+.mypy_cache/
+.pytype/
 
