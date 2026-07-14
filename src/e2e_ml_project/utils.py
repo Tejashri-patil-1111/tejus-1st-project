@@ -1,37 +1,34 @@
-import os   
+import os
 import sys
-from src.e2e_ml_project.exception import CustomException        
-from src.e2e_ml_project.logger import logging
 import pandas as pd
 import pymysql
+# from dotenv import load_dotenv
+import dotenv
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    def load_dotenv():
-        pass
+
+from src.e2e_ml_project.exception import CustomException
+from src.e2e_ml_project.logger import logging
+
+dotenv.load_dotenv()  # Load environment variables from .env file
 
 host = os.getenv('host')
 user = os.getenv('user')
 password = os.getenv('password')
-database = os.getenv('database')
+db = os.getenv('db')
 
 def read_sql_data():
-    logging.info("Reading data from mysql database")    
+    logging.info("Reading data from mysql database")
     try:
-        mydb=pymysql.connect(
+        mydb = pymysql.connect(
             host=host,
             user=user,
-            password=password,
-            database=database
-        )
-        logging.info('connection Established', mydb)
-        df=pd.read_sql('SELECT * FROM Students', con=mydb)
+            password=str(password),
+            database=db
+        ) # type: ignore
+        logging.info('connection Established')
+        df = pd.read_sql_query('SELECT * FROM students', mydb)
         print(df.head())
-
         return df
 
-        
     except Exception as ex:
-        raise CustomException(ex)
+        raise CustomException(ex, sys) from ex
