@@ -2,14 +2,14 @@ import os
 import sys
 import pandas as pd
 import pymysql
-# from dotenv import load_dotenv
-import dotenv
+from dotenv import load_dotenv
+
 
 
 from src.e2e_ml_project.exception import CustomException
 from src.e2e_ml_project.logger import logging
 
-dotenv.load_dotenv()  # Load environment variables from .env file
+load_dotenv()  # Load environment variables from .env file
 
 host = os.getenv('host')
 user = os.getenv('user')
@@ -26,7 +26,7 @@ def read_sql_data():
             database=db
         ) # type: ignore
         logging.info('connection Established')
-        df = pd.read_sql_query('SELECT * FROM students', mydb)
+        df = pd.read_sql_query('SELECT * FROM raw', mydb)
         print(df.head())
         return df
 
