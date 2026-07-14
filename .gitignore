@@ -3,7 +3,8 @@ tej_venv/
 .venv/
 venv/
 env/
-
+logs/
+.env
 # Python bytecode and caches
 __pycache__/
 *.py[cod]
